@@ -11,6 +11,7 @@ export async function POST(req) {
   }
 
   const wh = new Webhook(SIGNING_SECRET)
+
   const headerPayload = await headers()
   const svix_id = headerPayload.get('svix-id')
   const svix_timestamp = headerPayload.get('svix-timestamp')
@@ -46,12 +47,10 @@ export async function POST(req) {
   const { id } = evt?.data;
   const eventType = evt?.type;
 
-  console.log(id, eventType)
-
   if(eventType === 'user.created' || eventType === 'user.updated') {
-    const { first_name, last_name, image_url, email_adresses } = evt?.data;
+    const { first_name, last_name, image_url, email_addresses } = evt?.data;
     try {
-      const user = await createOrUpdateUser(id, first_name, last_name, image_url, email_adresses);
+      const user = await createOrUpdateUser(id, first_name, last_name, image_url, email_addresses);
 
       if(user && eventType === 'user.created'){
         try {
