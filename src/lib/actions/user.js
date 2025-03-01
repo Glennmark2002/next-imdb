@@ -16,6 +16,9 @@ export const createOrUpdateUser = async (id, first_name, last_name, image_url, e
       },
       { upsert: true, new: true }
     );
+
+    return user;
+    
   } catch (error) {
     console.log('Error: Could not create or update user:', error);    
   }
