@@ -3,7 +3,6 @@ import { headers } from 'next/headers'
 import { createOrUpdateUser, deleteUser } from '@/lib/actions/user'
 import { clerkClient } from '@clerk/nextjs/server';
 
-
 export async function POST(req) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET
 
@@ -44,8 +43,8 @@ export async function POST(req) {
     })
   }
 
-  const { id } = evt.data
-  const eventType = evt.type
+  const { id } = evt?.data;
+  const eventType = evt?.type;
 
   if(eventType === 'user.created' || eventType === 'user.updated') {
     const { first_name, last_name, image_url, email_adresses } = evt?.data;
